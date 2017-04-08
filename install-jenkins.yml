@@ -1,0 +1,43 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+  - name: Add Jenkins Repo
+    yum_repository:
+        name: jenkins
+        description: Jenkins Repo
+        baseurl: http://pkg.jenkins.io/redhat
+        gpgcheck: yes
+
+  - name: Import Jenkins GPG Key
+    rpm_key: "key={{ item }} state=present"
+    with_items:
+      - "https://jenkins-ci.org/redhat/jenkins-ci.org.key"
+
+  - name: Install Jenkins
+    yum: name=jenkins state=present
+
+#  - name: Ensure Firewalld enable
+#    service: name=firewalld state=started enabled=yes
+
+#  - name: Add Port 8080 on Firewalld
+#    command: firewall-cmd --permanent --add-port=8080/tcp
+
+#  - name: Add Service HTTP on Firewalld
+#    command: firewall-cmd --permanent --add-service=http
+
+#  - name: Apply rules firewalld
+#    command: firewall-cmd --reload
+
+  - name: Install Epel Repo
+    yum: name=epel-release state=present
+
+  - name: Install Java
+    yum: name=java-1.8.0-openjdk state=present enablerepo=epel
+
+  - name: Versao do Java
+    shell: "java -version"
+  
+  - name: Start service Jenkins
+    service: name=jenkins state=started enabled=yes
