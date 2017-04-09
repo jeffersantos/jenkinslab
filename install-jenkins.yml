@@ -18,17 +18,17 @@
   - name: Install Jenkins
     yum: name=jenkins state=present
 
-#  - name: Ensure Firewalld enable
-#    service: name=firewalld state=started enabled=yes
+  - name: Ensure Firewalld enable
+    service: name=firewalld state=started enabled=yes
 
-#  - name: Add Port 8080 on Firewalld
-#    command: firewall-cmd --permanent --add-port=8080/tcp
+  - name: Add Port 8080 on Firewalld
+    command: firewall-cmd --permanent --add-port=8080/tcp
 
-#  - name: Add Service HTTP on Firewalld
-#    command: firewall-cmd --permanent --add-service=http
+  - name: Add Service HTTP on Firewalld
+    command: firewall-cmd --permanent --add-service=http
 
-#  - name: Apply rules firewalld
-#    command: firewall-cmd --reload
+  - name: Apply rules firewalld
+    command: firewall-cmd --reload
 
   - name: Install Epel Repo
     yum: name=epel-release state=present

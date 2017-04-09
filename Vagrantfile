@@ -43,12 +43,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		teste.vm.network "forwarded_port", host: 8085, guest: 8080, auto_correct: true
 	end
 
-	config.vm.provision "ansible" do |ansible|
-        	ansible.playbook = "ntp.yml"
-  	end
+	#config.vm.provision "ansible" do |ansible|
+	#       	ansible.playbook = "ntp.yml"
+ 	#end
 
-	config.vm.provision "ansible" do |jenkins|
-		jenkins.playbook = "install-jenkins.yml"
-	end
+	#config.vm.provision "ansible" do |jenkins|
+	#		jenkins.playbook = "install-jenkins.yml"
+	#end
 	
+	#config.vm.provision "ansible" do |regras|
+	#		regras.playbook = "node.js/install-nodejs.yml"
+	#end
+
+
+	config.vm.provision "ansible" do |apache|
+			apache.playbook = "httpd/install-apache.yml"
+	end
 end

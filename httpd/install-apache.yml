@@ -1,0 +1,58 @@
+---
+- hosts: all
+  become: yes
+
+  vars_files:
+  - vars.yml
+
+  pre_tasks:
+  - name: Upgrade all packages.
+    yum: name=* state=latest
+
+  tasks:
+  - name: Install Repo Webstatic for PHP 7.
+    yum: name={{ item.href }} state=present
+    with_items:
+      - href: "https://mirror.webtatic.com/yum/el7/webtatic-release.rpm"
+
+  - name: Install Apache, MariaDB and PHP 7.
+    yum: name={{ item }} state=present
+    with_items:
+        - git
+        - curl
+        - httpd
+        - httpd-devel
+        - php70w
+        - php70w-devel
+        - php70w-common
+        - php70w-pdo
+        - php70w-mysql
+        - php70w-mbstring
+        - php70w-mcrypt
+        - php70w-mhash
+        - php70w-curl
+        - php70w-xsl
+        - php70w-gd
+        - ImageMagick
+        - php70w-soap
+        - php70w-intl
+        - openssl
+        - mod_ssl
+        - mariadb-server
+        - php70w-xml
+        - php70w-xmlrpc
+        - php70w-json
+
+  - name: Active module rewrite Apache.
+    apache2_module: name=rewrite state=present
+    notify: restart apache
+
+  - copy:
+      src: "/root/teste/httpd/index.php"
+      dest: "/var/www/html/"
+      owner: apache
+      group: apache
+      mode: 0770
+
+  - name: Service start Httpd
+    service: name=httpd state=started enabled=yes
