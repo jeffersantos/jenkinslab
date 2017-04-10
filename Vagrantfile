@@ -63,10 +63,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	#		nginx.playbook = "nginx/install-nginx.yml"
 	#end
 
-	config.vm.provision "ansible" do |ansible|
-		ansible.playbook = "provision/install.yml"
-		ansible.host_key_checking = false
-		ansible.sudo = true
-		ansible.tags = ['jenkins']
-	end
+	#config.vm.provision "ansible" do |ansible|
+	#	ansible.playbook = "provision/install.yml"
+	#	ansible.host_key_checking = false
+	#	ansible.sudo = true
+	#	ansible.tags = ['common','jenkins']
+	#end
 end

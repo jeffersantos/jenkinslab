@@ -1,7 +1,14 @@
 ---
 - name: Install Nginx
   yum: name={{ nginx_packages }} state=present
-  
+
+- copy:
+    src: "roles/jenkins/templates/nginx.conf"
+    dest: "/etc/nginx/nginx.conf"
+    owner: root
+    group: root
+    mode: 0770
+
 - name: Install settings nginx forward jenkins
   template: src={{ config_file }} dest=/etc/nginx/conf.d/{{ site_name }} owner=root group=root mode=0644
   notify: Restart Nginx

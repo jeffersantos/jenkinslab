@@ -1,5 +1,6 @@
 ---
      jenkins_packages:
+      - epel-release
       - jenkins
       - nginx
       - curl
