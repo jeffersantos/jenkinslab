@@ -1,0 +1,32 @@
+---
+ - name: Add Jenkins Repo
+   yum_repository:
+   name: jenkins
+   description: Jenkins Repo
+   baseurl: {{ jenkins_base_repo }}
+   gpgcheck: yes
+
+ - name: Import Jenkins GPG Key
+   rpm_key: "key={{ jenkins_public_key_url }} state=present"
+
+ - name: Install Jenkins
+   yum: name={{ item }} state=present
+   with_items: jenkins_packages
+
+ - name: Ensure Firewalld enable
+   service: name=firewalld state=started enabled=yes
+
+ - name: Add Port 8080 on Firewalld
+   command: firewall-cmd --permanent --add-port=8080/tcp
+
+ - name: Add Service HTTP on Firewalld
+   command: firewall-cmd --permanent --add-service=http
+
+ - name: Apply rules firewalld
+   command: firewall-cmd --reload
+
+ - name: Install Epel Repo
+   yum: name=epel-release state=present
+
+ - name: Start service Jenkins
+   service: name=jenkins state=started enabled=yes

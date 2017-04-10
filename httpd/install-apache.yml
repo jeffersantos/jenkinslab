@@ -56,3 +56,12 @@
 
   - name: Service start Httpd
     service: name=httpd state=started enabled=yes
+
+  - name: Ensure Port 80/tcp on Firewalld is enabled
+    command: "firewall-cmd --add-service=http --permanent"
+
+  - name: Ensure Port 443/tcp on Firewalld is enabled
+    command: "firewall-cmd --add-service=https --permanent"
+
+  - name: Apply rules on Firewalld
+    command: "firewall-cmd --reload"

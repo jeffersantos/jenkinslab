@@ -1,0 +1,8 @@
+---
+     jenkins_packages:
+      - jenkins
+      - nginx
+      - curl
+
+     jenkins_public_key_url: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+     jenkins_base_repo: 'http://pkg.jenkins.io/redhat'

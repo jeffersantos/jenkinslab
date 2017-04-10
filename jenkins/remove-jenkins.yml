@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+  - name: Uninstall Jenkins and others packages.
+    yum: name={{ item }} state=absent
+    with_items:
+         - jenkins
+         - nginx
+         - epel-release
+         - java-1.8.0-openjdk
+         - java
+
+  - name: Ensure Firewalld enable
+    service: name=firewalld state=started enabled=yes
+
+  - name: Remove Port 8080 on Firewalld
+    command: firewall-cmd --permanent --remove-port=8080/tcp
+
+  - name: Remove Service HTTP on Firewalld
+    command: firewall-cmd --permanent --remove-service=http
+
+  - name: Apply rules firewalld
+    command: firewall-cmd --reload

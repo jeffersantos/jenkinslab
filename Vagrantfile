@@ -48,15 +48,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  	#end
 
 	#config.vm.provision "ansible" do |jenkins|
-	#		jenkins.playbook = "install-jenkins.yml"
+	#	jenkins.playbook = "provision/install.yml"
 	#end
 	
-	#config.vm.provision "ansible" do |regras|
-	#		regras.playbook = "node.js/install-nodejs.yml"
+	#config.vm.provision "ansible" do |appnode|
+	#		appnode.playbook = "node.js/install-nodejs.yml"
 	#end
 
+	#config.vm.provision "ansible" do |apache|
+	#		apache.playbook = "httpd/install-apache.yml"
+	#end
 
-	config.vm.provision "ansible" do |apache|
-			apache.playbook = "httpd/install-apache.yml"
+	#config.vm.provision "ansible" do |nginx|
+	#		nginx.playbook = "nginx/install-nginx.yml"
+	#end
+
+	config.vm.provision "ansible" do |ansible|
+		ansible.playbook = "provision/install.yml"
+		ansible.host_key_checking = false
+		ansible.sudo = true
+		ansible.tags = ['common','jenkins']
 	end
 end
