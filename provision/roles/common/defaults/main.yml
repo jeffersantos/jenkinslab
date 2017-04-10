@@ -1,5 +1,6 @@
 ---
    common_packages:
+      - epel-release
       - git
       - curl
       - vim

@@ -3,6 +3,7 @@
       - jenkins
       - nginx
       - curl
+      - java-1.8.0-openjdk
 
      jenkins_public_key_url: https://jenkins-ci.org/redhat/jenkins-ci.org.key
-     jenkins_base_repo: 'http://pkg.jenkins.io/redhat'
+     jenkins_url_repo: http://pkg.jenkins.io/redhat

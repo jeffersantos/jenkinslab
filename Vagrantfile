@@ -67,6 +67,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		ansible.playbook = "provision/install.yml"
 		ansible.host_key_checking = false
 		ansible.sudo = true
-		ansible.tags = ['common','jenkins']
+		ansible.tags = ['jenkins']
 	end
 end
